@@ -52,12 +52,14 @@
 
         h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 30px; letter-spacing: -1px; }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            padding: 22px;
             border-radius: 20px;
             transition: 0.3s;
             display: flex;
@@ -65,41 +67,8 @@
             align-items: center;
         }
 
-        .stat-value { font-size: 1.4rem; font-weight: 900; color: #ffffff; }
-        .stat-label { font-size: 0.65rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600; }
-
-        .status-container { display: flex; justify-content: center; margin-bottom: 30px; }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 35px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .back-btn {
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-            position: relative;
-            z-index: 10;
-        }
-
-        .back-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: #ffffff; }
-
+        .stat-card:hover { transform: translateY(-5px); }
+        
         .online-dot {
             width: 10px; height: 10px;
             background-color: #2ecc71;
@@ -108,7 +77,11 @@
             animation: blink 1.5s infinite;
         }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes blink {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -119,64 +92,57 @@
         <h1>System Status</h1>
         
         <div class="stats-grid">
-            <div class="stat-card"><span id="latency-val" class="stat-value">...</span><span class="stat-label">Latency</span></div>
-            <div class="stat-card"><span id="ram-val" class="stat-value">...</span><span class="stat-label">RAM Usage</span></div>
-            <div class="stat-card"><span id="loc-val" class="stat-value">...</span><span class="stat-label">Location</span></div>
-            <div class="stat-card"><span id="uptime-val" class="stat-value">...</span><span class="stat-label">Uptime</span></div>
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 22px;" onmouseover="this.style.borderColor='#ffffff';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)';">
+                <span id="latency-val" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
+                <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">Latency</span>
+            </div>
+
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 22px;" onmouseover="this.style.borderColor='#ffffff';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)';">
+                <span id="ram-val" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
+                <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">RAM Usage</span>
+            </div>
+
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 22px;" onmouseover="this.style.borderColor='#ffffff';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)';">
+                <span id="loc-val" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
+                <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">Location</span>
+            </div>
+
+            <div class="stat-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 22px;" onmouseover="this.style.borderColor='#ffffff';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)';">
+                <span id="uptime-val" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
+                <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">Uptime</span>
+            </div>
         </div>
 
-        <div class="status-container">
-            <div id="fluxer-status" class="status-badge">
+        <div class="status-container" style="display: flex; justify-content: center; margin-bottom: 30px;">
+            <div id="fluxer-status" style="display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; background: rgba(255, 255, 255, 0.06); color: #ffffff; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 1.1rem; font-weight: 700; z-index: 5; transition: 0.3s;" onmouseover="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.1)'; " onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)'; this.style.background='rgba(255, 255, 255, 0.06)';">
                 <div class="online-dot"></div>
                 Fluxer: Checking...
             </div>
         </div>
 
-        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Back to Main Page</a>
+        <a href="index.html" style="display: inline-block; padding: 12px 20px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; text-decoration: none; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; position: relative; z-index: 10;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.borderColor='#ffffff';" onmouseout="this.style.background='rgba(255, 255, 255, 0.05)'; this.style.borderColor='rgba(255, 255, 255, 0.1)';">
+            <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Back to Main Page
+        </a>
     </div>
 
     <script>
-        // Engelleme ve Çift Yazım Kontrolü
-        function cleanData(text, isLocation = false) {
-            if (!text) return "...";
-            
-            // 1. Yasaklı kelimeleri sil (Discord, Bot vb.)
-            let cleaned = text.toString()
-                .replace(/Discord/gi, "")
-                .replace(/Bot/gi, "")
-                .trim();
-
-            // 2. Konum için Çift "US" Kontrolü
-            if (isLocation) {
-                // Eğer gelen veride zaten "US", "USA" veya "United States" VARSA, 
-                // koda manuel bayrak ekletmiyoruz, sadece gelen veriyi temizleyip basıyoruz.
-                const hasUS = /US|USA|United States/i.test(cleaned);
-                
-                if (hasUS) {
-                    // Zaten US yazıyor, sadece temiz halini döndür (Ekstra bayrak EKLEME)
-                    return cleaned; 
-                } else {
-                    // Eğer veride US yazmıyorsa (örn: sadece "New York" gelirse), bayrağı biz ekleyelim
-                    return cleaned + " 🇺🇸";
-                }
-            }
-            return cleaned;
-        }
-
         async function updateStats() {
             try {
                 const response = await fetch('https://yardim-production.up.railway.app/api/status');
                 const data = await response.json();
 
-                document.getElementById('latency-val').innerText = cleanData(data.latency);
-                document.getElementById('ram-val').innerText = cleanData(data.ramUsage);
-                document.getElementById('uptime-val').innerText = cleanData(data.uptime);
+                document.getElementById('latency-val').innerText = data.latency;
+                document.getElementById('ram-val').innerText = data.ramUsage;
+                document.getElementById('uptime-val').innerText = data.uptime;
+
+                let locationName = data.location || "";
+                if (locationName.includes("USA") || locationName.includes("United States")) {
+                    document.getElementById('loc-val').innerText = locationName + " 🇺🇸";
+                } else {
+                    document.getElementById('loc-val').innerText = locationName;
+                }
                 
-                // Konum: Çift "US" kontrolü burada yapılıyor
-                document.getElementById('loc-val').innerText = cleanData(data.location, true);
-                
-                // Status
-                document.getElementById('fluxer-status').innerHTML = `<div class="online-dot"></div> Fluxer: ${cleanData(data.fluxer_status)}`;
+                document.getElementById('fluxer-status').innerHTML = `<div class="online-dot"></div> Fluxer: ${data.fluxer_status}`;
                 
             } catch (error) {
                 document.getElementById('fluxer-status').innerHTML = `<div class="online-dot" style="background:#ff4d4d; box-shadow:0 0 8px #ff4d4d;"></div> Fluxer: Offline`;
