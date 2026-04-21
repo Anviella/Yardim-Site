@@ -135,10 +135,6 @@
                 <span id="tickets-opened" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
                 <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">Opened Tickets</span>
             </div>
-            <div class="stat-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 22px;" onmouseover="this.style.borderColor='#ffffff';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.1)';">
-                <span id="tickets-closed" style="font-size: 1.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 15px rgba(255,255,255,0.2);">...</span>
-                <span style="font-size: 0.90rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 600;">Closed Tickets</span>
-            </div>
         </div>
 
         <div class="status-container" style="display: flex; justify-content: center; margin-bottom: 30px;">
@@ -180,8 +176,6 @@ async function updateStats() {
         if (data.openedTickets !== undefined) {
             document.getElementById('tickets-opened').innerText = data.openedTickets + "+";
         }
-        if (data.closedTickets !== undefined) {
-            document.getElementById('tickets-closed').innerText = data.closedTickets + "+";
         }
         
         // Durum Metni Güncelleme
@@ -192,7 +186,6 @@ async function updateStats() {
         // Hata durumunda en azından 0 göstererek "..." takılı kalmasını engeller
         if(document.getElementById('tickets-opened').innerText === "...") {
             document.getElementById('tickets-opened').innerText = "0+";
-            document.getElementById('tickets-closed').innerText = "0+";
         }
     }
 }
