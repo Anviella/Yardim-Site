@@ -163,45 +163,25 @@
     </div>
 
 <script>
-async function updateStatus() {
-    const fluxDot = document.getElementById('status-dot');
-    const fluxStatusBox = document.getElementById('fluxer-status');
+    async function updateStatus() {
+        try {
+            // "senin-botun.up.railway.app" kısmını kendi Railway URL'n ile değiştir
+            const response = await fetch('https://senin-botun.up.railway.app/api/status');
+            const data = await response.json();
 
-    try {
-        const API_URL = 'https://yardim-production.up.railway.app/api/status'; 
-        const response = await fetch(API_URL);
-        const data = await response.json();
-
-        // İstatistikleri Güncelle
-        document.getElementById('latency-val').innerText = data.latency || "0ms";
-        document.getElementById('ram-val').innerText = data.ramUsage || "0MB";
-        document.getElementById('uptime-val').innerText = data.uptime || "0h";
-        document.getElementById('tickets-opened').innerText = data.openedTickets || "0";
-        document.getElementById('loc-val').innerText = data.location || "Germany";
-
-        // Fluxer Durumu
-        if (data.fluxer_status === "Online") {
-            fluxDot.style.backgroundColor = "#2ecc71";
-            fluxDot.style.boxShadow = "0 0 10px #2ecc71";
-            fluxStatusBox.childNodes[2].nodeValue = " Fluxer: Online";
-        } else {
-            fluxDot.style.backgroundColor = "#e74c3c";
-            fluxDot.style.boxShadow = "0 0 10px #e74c3c";
-            fluxStatusBox.childNodes[2].nodeValue = " Fluxer: Offline";
+            // HTML elementlerini botun verileriyle doldur
+            document.getElementById('ping-degeri').innerText = data.latency;
+            document.getElementById('lokasyon-bilgisi').innerText = data.location;
+            document.getElementById('uptime-bilgisi').innerText = data.uptime;
+            document.getElementById('durum-isigi').innerText = data.status;
+        } catch (error) {
+            console.error("Bot API'sine ulaşılamadı:", error);
         }
-        
-    } catch (error) {
-        console.error("Hata:", error);
-        fluxDot.style.backgroundColor = "#e74c3c";
-        fluxStatusBox.childNodes[2].nodeValue = " Fluxer: Offline";
-        
-        const vals = ['latency-val', 'ram-val', 'uptime-val', 'tickets-opened', 'loc-val'];
-        vals.forEach(id => document.getElementById(id).innerText = "ERR");
     }
-}
 
-updateStatus();
-setInterval(updateStatus, 30000);
+    // Sayfa açıldığında ve her 30 saniyede bir güncelle
+    updateStatus();
+    setInterval(updateStatus, 30000);
 </script>
 </body>
 </html>
